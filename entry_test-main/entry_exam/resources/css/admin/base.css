@@ -1,0 +1,42 @@
+body {
+    background-color:#e0e0e0;
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.page-wrapper {
+    padding-top: 10px;
+}
+
+h2.title {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.search-hotel-name {
+    padding: 10px 0;
+}
+
+h2.title,
+.search-hotel-name {
+    padding-left: 320px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    vertical-align: middle;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    word-break: break-word;
+}
+
+li {
+    list-style:none;
+}

@@ -1,0 +1,38 @@
+.container{
+    .text{
+        line-height: 30px;
+    }
+    .text,.area{
+        font-size: 20px;
+        font-weight: bold;
+
+    }
+    .pref{
+        font-size: 18px;
+        &::after{
+            content: '|';
+            padding: 0 0 0 5px;
+        }
+        &:last-child{
+            &::after{
+                content: '';
+            }
+        }
+        &:hover{
+            color: lighten($color: #000000, $amount: 50%)
+        }
+    }
+    .area_wrapper{
+        padding: 10px 0;
+    }
+    .prefecture_container{
+        background: #ffffff90;
+        padding: 20px 30px 50px;
+        .area_container{
+            display: flex;
+            .side-wrapper{
+                width: 50%;
+            }
+        }
+    }
+}

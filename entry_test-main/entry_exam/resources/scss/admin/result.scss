@@ -1,0 +1,22 @@
+.search-result {
+    padding-left: 320px;
+}
+table.shopsearchlist_table {
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;
+    table-layout: fixed;
+    background-color: #ffffff;
+    font-size: 13px;
+}
+
+#shop_name {
+    min-width: 111px;
+    text-align: center;
+    width: 111px;
+}
+
+h3.search-result-title {
+    font-size: 24px;
+    color: gray;
+    margin-bottom: 10px;
+}
