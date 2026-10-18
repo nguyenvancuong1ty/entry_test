@@ -42,8 +42,7 @@
         @endif
 
         <div class="search-card">
-            <form action="{{ route('adminHotelSearchResult') }}" method="post" class="search-form">
-                @csrf
+            <form action="{{ route('adminHotelSearchResult') }}" method="get" class="search-form">
                 <div class="form-group">
                     <label class="form-label" for="hotel_name">ホテル名</label>
                     <input type="text" id="hotel_name" name="hotel_name" value="{{ old('hotel_name', $hotel_name ?? '') }}" placeholder="例: ホテルサクラ" class="form-control">

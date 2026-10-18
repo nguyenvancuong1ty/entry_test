@@ -39,6 +39,7 @@
 
 table.hotel-table {
     width: 100%;
+    min-width: 1050px;
     border-collapse: collapse;
     font-size: 14px;
     text-align: left;
@@ -47,7 +48,7 @@ table.hotel-table {
         background-color: #f8fafc;
         color: #64748b;
         font-weight: 600;
-        padding: 14px 16px;
+        padding: 14px 18px;
         border-bottom: 1px solid #e2e8f0;
         white-space: nowrap;
         font-size: 13px;
@@ -57,10 +58,12 @@ table.hotel-table {
         transition: background-color 0.15s ease;
 
         td {
-            padding: 14px 16px;
+            padding: 14px 18px;
             border-bottom: 1px solid #f1f5f9;
             color: #1e293b;
             vertical-align: middle;
+            white-space: nowrap;
+            word-break: normal;
         }
 
         &:hover {
@@ -76,6 +79,7 @@ table.hotel-table {
         display: flex;
         align-items: center;
         gap: 12px;
+        white-space: nowrap;
 
         .hotel-thumb {
             width: 48px;
@@ -102,12 +106,45 @@ table.hotel-table {
             font-weight: 600;
             color: #0f172a;
             text-decoration: none;
+            white-space: nowrap;
 
             &:hover {
                 color: #2563eb;
                 text-decoration: underline;
             }
         }
+    }
+
+    .cell-name, th.col-name, th.col-customer {
+        min-width: 150px;
+        white-space: nowrap;
+    }
+
+    .cell-contact, th.col-contact {
+        min-width: 200px;
+        white-space: nowrap;
+    }
+
+    .cell-hotel, th.col-hotel {
+        min-width: 200px;
+        white-space: nowrap;
+    }
+
+    .cell-datetime, th.col-datetime, th.col-date {
+        min-width: 150px;
+        white-space: nowrap;
+    }
+
+    .cell-timestamp, th.col-timestamp {
+        min-width: 170px;
+        white-space: nowrap;
+    }
+
+    .hotel-sub-pref {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 2px;
+        font-weight: normal;
     }
 
     .pref-badge {

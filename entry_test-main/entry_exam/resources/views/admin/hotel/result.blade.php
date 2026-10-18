@@ -5,7 +5,7 @@
         <div class="result-header">
             <h3 class="result-title">検索結果</h3>
             @if (!empty($hotelList) && count($hotelList) > 0)
-                <span class="result-badge">{{ count($hotelList) }} 件</span>
+                <span class="result-badge">{{ $hotelList instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $hotelList->total() : count($hotelList) }} 件</span>
             @endif
         </div>
 
@@ -70,6 +70,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <x-common.pagination :paginator="$hotelList" />
         @else
             <div class="empty-state">
                 <span class="empty-icon">🔍</span>

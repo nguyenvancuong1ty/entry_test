@@ -332,4 +332,63 @@ class AdminHotelTest extends TestCase
         $this->assertNotEmpty($results);
         $this->assertEquals($hotel->hotel_id, $results[0]['hotel_id']);
     }
+
+    /**
+     * Test hotel search pagination, per_page options, and count text
+     */
+    public function test_hotel_search_pagination_and_per_page(): void
+    {
+        $response = $this->get(route('adminHotelSearchResult', [
+            'hotel_name' => 'ホテル',
+            'per_page' => 20,
+        ]));
+
+        $response->assertStatus(200);
+        $response->assertSee('表示件数:');
+        $response->assertSee('20 件');
+        $response->assertSee('全');
+        $response->assertSee('件を表示');
+    }
+
+    /**
+     * Test hotel search preserves search criteria in pagination URLs and page 2 does not show empty error
+     */
+    public function test_hotel_search_pagination_preserves_query_parameters_across_pages(): void
+    {
+        // 1. Initial search via POST
+        $postResponse = $this->post(route('adminHotelSearchResult'), [
+            'hotel_name' => 'ホテル',
+        ]);
+
+        $postResponse->assertStatus(200);
+        $postResponse->assertDontSee('何も入力されていません');
+        // Pagination link should include hotel_name
+        $postResponse->assertSee('hotel_name=' . urlencode('ホテル'));
+
+        // 2. Navigating to page 2 via GET with preserved query params
+        $page2Response = $this->get(route('adminHotelSearchResult', [
+            'hotel_name' => 'ホテル',
+            'page' => 2,
+        ]));
+
+        $page2Response->assertStatus(200);
+        $page2Response->assertDontSee('何も入力されていません');
+        $page2Response->assertSee('value="ホテル"', false);
+    }
+
+    /**
+     * Test pagination and hotel configurations are loaded and applied correctly
+     */
+    public function test_pagination_and_hotel_configurations(): void
+    {
+        $this->assertEquals(10, config('pagination.default_per_page'));
+        $this->assertEquals([10, 20, 30, 50, 100], config('pagination.options'));
+        $this->assertEquals(2, config('pagination.on_each_side'));
+
+        $this->assertEquals('hotel', config('hotel.image.base_dir'));
+        $this->assertEquals('hotel/tmp', config('hotel.image.temp_dir'));
+        $this->assertEquals(2048, config('hotel.image.max_size_kb'));
+        $this->assertContains('jpeg', config('hotel.image.allowed_mimes'));
+    }
 }
+

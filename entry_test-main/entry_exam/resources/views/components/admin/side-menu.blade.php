@@ -21,6 +21,12 @@
                         <span class="nav-label">ホテル追加</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('adminBookingSearchPage', 'adminBookingSearchResult') ? 'active' : '' }}" href="{{ route('adminBookingSearchPage') }}">
+                        <span class="nav-icon">📅</span>
+                        <span class="nav-label">予約情報検索</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="menu-footer">

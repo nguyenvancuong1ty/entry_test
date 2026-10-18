@@ -28,6 +28,9 @@
                     <a href="{{ route('adminHotelCreatePage') }}" class="btn-hero-secondary">
                         <span>➕</span> ホテル新規登録
                     </a>
+                    <a href="{{ route('adminBookingSearchPage') }}" class="btn-hero-secondary">
+                        <span>📅</span> 予約情報検索
+                    </a>
                 </div>
             </div>
         </div>
@@ -38,6 +41,13 @@
                 <div class="info-body">
                     <h4 class="info-card-title">ホテル管理機能</h4>
                     <p class="info-card-text">登録済みホテルの検索、都道府県別フィルタリング、情報の編集および安全な削除が行えます。</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">📅</span>
+                <div class="info-body">
+                    <h4 class="info-card-title">宿泊予約検索</h4>
+                    <p class="info-card-text">顧客名、連絡先、チェックイン・チェックアウト日時による宿泊予約の検索・照会が可能です。</p>
                 </div>
             </div>
             <div class="info-card">

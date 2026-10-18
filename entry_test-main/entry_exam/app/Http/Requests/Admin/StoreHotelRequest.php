@@ -23,10 +23,13 @@ class StoreHotelRequest extends FormRequest
      */
     public function rules(): array
     {
+        $maxSize = (int) config('hotel.image.max_size_kb', 2048);
+        $mimes = implode(',', config('hotel.image.allowed_mimes', ['jpeg', 'png', 'jpg', 'gif', 'webp']));
+
         return [
             'hotel_name' => ['required', 'string', 'max:255'],
             'prefecture_id' => ['required', 'integer', 'exists:prefectures,prefecture_id'],
-            'file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'file' => ['nullable', 'image', "mimes:{$mimes}", "max:{$maxSize}"],
         ];
     }
 

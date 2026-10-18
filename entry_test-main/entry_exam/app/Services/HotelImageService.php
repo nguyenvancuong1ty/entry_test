@@ -9,8 +9,21 @@ use Illuminate\Support\Facades\File;
 
 class HotelImageService
 {
-    private const BASE_RELATIVE_DIR = 'hotel';
-    private const TEMP_RELATIVE_DIR = 'hotel/tmp';
+    /**
+     * Get relative base directory for permanent hotel images
+     */
+    public function getBaseRelativeDir(): string
+    {
+        return config('hotel.image.base_dir', 'hotel');
+    }
+
+    /**
+     * Get relative directory for temporary hotel images
+     */
+    public function getTempRelativeDir(): string
+    {
+        return config('hotel.image.temp_dir', 'hotel/tmp');
+    }
 
     /**
      * Store directly an uploaded hotel image
@@ -20,14 +33,15 @@ class HotelImageService
      */
     public function storeUploadedImage(UploadedFile $file): string
     {
-        $targetDirectory = public_path('assets/img/' . self::BASE_RELATIVE_DIR);
+        $baseDir = $this->getBaseRelativeDir();
+        $targetDirectory = public_path('assets/img/' . $baseDir);
         $this->ensureDirectoryExists($targetDirectory);
 
         $extension = $file->guessExtension() ?? $file->getClientOriginalExtension() ?? 'jpg';
         $filename = sprintf('hotel_%s.%s', uniqid('', true), $extension);
         $file->move($targetDirectory, $filename);
 
-        return self::BASE_RELATIVE_DIR . '/' . $filename;
+        return $baseDir . '/' . $filename;
     }
 
     /**
@@ -38,14 +52,15 @@ class HotelImageService
      */
     public function storeTempImage(UploadedFile $file): string
     {
-        $targetDirectory = public_path('assets/img/' . self::TEMP_RELATIVE_DIR);
+        $tempDir = $this->getTempRelativeDir();
+        $targetDirectory = public_path('assets/img/' . $tempDir);
         $this->ensureDirectoryExists($targetDirectory);
 
         $extension = $file->guessExtension() ?? $file->getClientOriginalExtension() ?? 'jpg';
         $filename = sprintf('tmp_%s.%s', uniqid('', true), $extension);
         $file->move($targetDirectory, $filename);
 
-        return self::TEMP_RELATIVE_DIR . '/' . $filename;
+        return $tempDir . '/' . $filename;
     }
 
     /**
@@ -56,7 +71,10 @@ class HotelImageService
      */
     public function promoteTempImage(string $tempFilePath): string
     {
-        if (str_contains($tempFilePath, '..') || !str_starts_with($tempFilePath, self::TEMP_RELATIVE_DIR . '/')) {
+        $tempDir = $this->getTempRelativeDir();
+        $baseDir = $this->getBaseRelativeDir();
+
+        if (str_contains($tempFilePath, '..') || !str_starts_with($tempFilePath, $tempDir . '/')) {
             return $tempFilePath;
         }
 
@@ -68,13 +86,13 @@ class HotelImageService
         $filename = basename($tempFullPath);
         $cleanFilename = preg_replace('/^tmp_/', 'hotel_', $filename);
 
-        $permanentDirectory = public_path('assets/img/' . self::BASE_RELATIVE_DIR);
+        $permanentDirectory = public_path('assets/img/' . $baseDir);
         $this->ensureDirectoryExists($permanentDirectory);
 
         $permanentFullPath = $permanentDirectory . DIRECTORY_SEPARATOR . $cleanFilename;
         File::move($tempFullPath, $permanentFullPath);
 
-        return self::BASE_RELATIVE_DIR . '/' . $cleanFilename;
+        return $baseDir . '/' . $cleanFilename;
     }
 
     /**
@@ -85,7 +103,9 @@ class HotelImageService
      */
     public function deleteImage(?string $filePath): void
     {
-        if ($filePath === null || str_contains($filePath, '..') || !str_starts_with($filePath, self::BASE_RELATIVE_DIR . '/')) {
+        $baseDir = $this->getBaseRelativeDir();
+
+        if ($filePath === null || str_contains($filePath, '..') || !str_starts_with($filePath, $baseDir . '/')) {
             return;
         }
 

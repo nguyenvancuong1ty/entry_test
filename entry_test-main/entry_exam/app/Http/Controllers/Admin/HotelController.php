@@ -52,7 +52,8 @@ class HotelController extends Controller
 
         $hotelList = $this->hotelService->searchHotels(
             $request->getHotelName(),
-            $request->getPrefectureId()
+            $request->getPrefectureId(),
+            $request->getPerPage()
         );
 
         return view('admin.hotel.result', [
@@ -60,6 +61,7 @@ class HotelController extends Controller
             'prefectures' => $prefectures,
             'hotel_name' => $request->getHotelName(),
             'prefecture_id' => $request->getPrefectureId(),
+            'per_page' => $request->getPerPage(),
         ]);
     }
 

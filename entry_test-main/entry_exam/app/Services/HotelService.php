@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\Hotel;
 use App\Models\Prefecture;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -37,15 +38,25 @@ class HotelService
     }
 
     /**
-     * Search hotels by name and/or prefecture
+     * Search hotels by name and/or prefecture with pagination
      *
-     * @return Collection<int, Hotel>
+     * @return LengthAwarePaginator
      */
-    public function searchHotels(?string $name, ?int $prefectureId): Collection
+    public function searchHotels(?string $name, ?int $prefectureId, ?int $perPage = null): LengthAwarePaginator
     {
+        $defaultPerPage = (int) config('pagination.default_per_page', 10);
+        $perPage ??= $defaultPerPage;
+
+        $params = array_filter([
+            'hotel_name' => $name,
+            'prefecture_id' => $prefectureId,
+            'per_page' => $perPage !== $defaultPerPage ? $perPage : null,
+        ], static fn ($value) => $value !== null && $value !== '');
+
         return Hotel::query()
             ->search($name, $prefectureId)
-            ->get();
+            ->paginate($perPage)
+            ->appends($params);
     }
 
     /**

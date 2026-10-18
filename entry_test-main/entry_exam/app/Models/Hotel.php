@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Hotel extends Model
 {
@@ -28,6 +29,14 @@ class Hotel extends Model
     public function prefecture(): BelongsTo
     {
         return $this->belongsTo(Prefecture::class, 'prefecture_id', 'prefecture_id');
+    }
+
+    /**
+     * Get bookings for the hotel
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'hotel_id', 'hotel_id');
     }
 
     /**
