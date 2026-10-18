@@ -419,6 +419,10 @@ li {
 }
 
 @media (max-width: 768px) {
+    .page-wrapper {
+        padding: 20px 16px 40px 16px;
+    }
+
     .common-pagination-container {
         flex-direction: column;
         align-items: stretch;

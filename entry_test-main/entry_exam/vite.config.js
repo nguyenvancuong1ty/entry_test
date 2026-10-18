@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
+import { globSync } from 'glob';
+
 export default defineConfig({
     plugins: [
         laravel({
             input: [
-                // 'resources/css/app.css',
-                // 'resources/js/app.js',
-                'resources/scss/**/*.scss',
-                'resources/css/**/*.css',
+                ...globSync('resources/scss/**/*.scss'),
+                ...globSync('resources/css/**/*.css'),
             ],
             refresh: true,
         }),

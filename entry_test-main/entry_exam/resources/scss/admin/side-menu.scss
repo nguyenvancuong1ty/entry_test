@@ -116,3 +116,52 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .admin-menu {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .menu-block {
+        padding: 14px 16px;
+        height: auto;
+
+        .brand {
+            margin-bottom: 10px;
+            padding: 0 0 10px 0;
+        }
+
+        .menu-section {
+            .section-title {
+                display: none;
+            }
+
+            .nav-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 6px;
+
+                .nav-link {
+                    padding: 8px 12px;
+                    font-size: 13px;
+                    border-left: none;
+                    border-bottom: 2px solid transparent;
+
+                    &.active {
+                        border-left-color: transparent;
+                        border-bottom-color: #2563eb;
+                    }
+                }
+            }
+        }
+
+        .menu-footer {
+            display: none;
+        }
+    }
+}
