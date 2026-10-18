@@ -17,7 +17,9 @@
                 <a href="{{ route('hotelDetail', ['hotel_id' => $hotel->hotel_id]) }}" class="hotel_link">
                     <div class="hotellist_wrapper">
                         <div class="left_wrapper">
-                            <img src="/assets/img/{{ $hotel->file_path }}" alt="{{ $hotel->hotel_name }}">
+                            @if ($hotel->image_url)
+                                <img src="{{ $hotel->image_url }}" alt="{{ $hotel->hotel_name }}">
+                            @endif
                         </div>
                         <div class="right_wrapper">
                             <p class="hotel_title">{{ $hotel->hotel_name }}</p>

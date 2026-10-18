@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,12 +18,12 @@ class Hotel extends Model
     protected $primaryKey = 'hotel_id';
 
     /**
-     * @var array
+     * @var list<string>
      */
     protected $guarded = ['hotel_id'];
 
     /**
-     * @return BelongsTo
+     * Get the prefecture that owns the hotel
      */
     public function prefecture(): BelongsTo
     {
@@ -26,28 +31,77 @@ class Hotel extends Model
     }
 
     /**
-     * Search hotel by hotel name
+     * Get the resolved public URL of the hotel image
+     */
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?string {
+                if (empty($this->file_path)) {
+                    return null;
+                }
+
+                return asset('assets/img/' . $this->file_path);
+            },
+        );
+    }
+
+    /**
+     * Scope a query to filter by partial hotel name with escaped wildcards
+     */
+    public function scopeFilterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name === null || trim($name) === '') {
+            return $query;
+        }
+
+        $escaped = addcslashes(trim($name), '%_\\');
+
+        return $query->where('hotel_name', 'LIKE', '%' . $escaped . '%');
+    }
+
+    /**
+     * Scope a query to filter by prefecture ID
+     */
+    public function scopeFilterByPrefecture(Builder $query, ?int $prefectureId): Builder
+    {
+        if (empty($prefectureId)) {
+            return $query;
+        }
+
+        return $query->where('prefecture_id', $prefectureId);
+    }
+
+    /**
+     * Scope a query to search hotels by name and/or prefecture
+     */
+    public function scopeSearch(Builder $query, ?string $name = null, ?int $prefectureId = null): Builder
+    {
+        return $query
+            ->with('prefecture')
+            ->filterByName($name)
+            ->filterByPrefecture($prefectureId);
+    }
+
+    /**
+     * Search hotel by hotel name (kept for backward compatibility with initial test specification)
      *
      * @param string $hotelName
-     * @return array
+     * @return array<int, mixed>
      */
-    static public function getHotelListByName(string $hotelName): array
+    public static function getHotelListByName(string $hotelName): array
     {
-        $result = Hotel::where('hotel_name', '=', $hotelName)
+        return self::query()
+            ->filterByName($hotelName)
             ->with('prefecture')
             ->get()
             ->toArray();
-
-        return $result;
     }
 
     /**
      * Override serializeDate method to customize date format
-     *
-     * @param  \DateTimeInterface  $date
-     * @return string
      */
-    protected function serializeDate(\DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
     }

@@ -14,6 +14,7 @@
     <body>
         <x-admin.side-menu />
         @yield('main_contents')
+        <x-common.confirm-modal />
         @yield('page_js')
     </body>
 </html>
