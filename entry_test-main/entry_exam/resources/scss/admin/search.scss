@@ -158,16 +158,24 @@
 }
 
 @media (max-width: 768px) {
+    .search-card {
+        padding: 18px 16px;
+    }
+
     .search-form {
         flex-direction: column;
         align-items: stretch;
+        gap: 16px;
 
         .form-group {
+            flex: none;
+            width: 100%;
             max-width: 100%;
         }
 
         .form-action {
             width: 100%;
+            margin-top: 4px;
 
             .btn-primary {
                 width: 100%;
