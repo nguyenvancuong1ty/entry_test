@@ -46,16 +46,16 @@
                                     @endif
                                 </td>
                                 <td class="cell-datetime">
-                                    <strong>{{ $booking->chekin_time?->format('Y-m-d H:i') }}</strong>
+                                    <strong>{{ $booking->checkin_time_text }}</strong>
                                 </td>
                                 <td class="cell-datetime">
-                                    <strong>{{ $booking->checkout_time?->format('Y-m-d H:i') }}</strong>
+                                    <strong>{{ $booking->checkout_time_text }}</strong>
                                 </td>
                                 <td class="text-muted cell-timestamp">
-                                    {{ $booking->created_at?->format('Y-m-d H:i:s') }}
+                                    {{ $booking->created_at }}
                                 </td>
                                 <td class="text-muted cell-timestamp">
-                                    {{ $booking->updated_at?->format('Y-m-d H:i:s') }}
+                                    {{ $booking->updated_at }}
                                 </td>
                             </tr>
                         @endforeach

@@ -7,6 +7,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -54,6 +55,26 @@ class Booking extends Model
     public function setCheckinTimeAttribute(mixed $value): void
     {
         $this->attributes['chekin_time'] = $value;
+    }
+
+    /**
+     * Get formatted check-in time for display (Y-m-d H:i)
+     */
+    protected function checkinTimeText(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->chekin_time?->format('Y-m-d H:i') ?? '',
+        );
+    }
+
+    /**
+     * Get formatted check-out time for display (Y-m-d H:i)
+     */
+    protected function checkoutTimeText(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->checkout_time?->format('Y-m-d H:i') ?? '',
+        );
     }
 
     /**
