@@ -25,6 +25,7 @@ class AdminBookingTest extends TestCase
         $response->assertSee('顧客連絡先');
         $response->assertSee('チェックイン日時');
         $response->assertSee('チェックアウト日時');
+        $response->assertSee('予約検索結果');
     }
 
     /**

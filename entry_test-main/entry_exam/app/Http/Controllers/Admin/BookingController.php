@@ -17,18 +17,11 @@ class BookingController extends Controller
     }
 
     /**
-     * Show booking search page
+     * Show booking search page (loads all booking data by default with pagination)
      */
-    public function showSearch(): View
+    public function showSearch(SearchBookingRequest $request): View
     {
-        return view('admin.booking.search', [
-            'filters' => [
-                'customer_name' => '',
-                'customer_contact' => '',
-                'chekin_time' => '',
-                'checkout_time' => '',
-            ],
-        ]);
+        return $this->searchResult($request);
     }
 
     /**
