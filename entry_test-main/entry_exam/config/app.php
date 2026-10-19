@@ -69,6 +69,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Date & Time Formats
+    |--------------------------------------------------------------------------
+    |
+    | Default formats used across the application for parsing and displaying
+    | dates and datetimes in views, models, and custom casts.
+    |
+    */
+
+    'date_format' => env('APP_DATE_FORMAT', 'Y-m-d'),
+
+    'datetime_format' => env('APP_DATETIME_FORMAT', 'Y-m-d H:i'),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

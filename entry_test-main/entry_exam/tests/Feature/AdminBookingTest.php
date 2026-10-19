@@ -234,7 +234,7 @@ class AdminBookingTest extends TestCase
      */
     public function test_booking_datetime_cast_respects_config_format(): void
     {
-        config(['booking.datetime_format' => 'Y/m/d H:i']);
+        config(['app.datetime_format' => 'Y/m/d H:i']);
 
         $hotel = Hotel::first();
         $booking = Booking::create([

@@ -36,7 +36,7 @@ class DateTimeMinute implements CastsAttributes
             return null;
         }
 
-        $format = $this->format ?? (string) config('booking.datetime_format', 'Y-m-d H:i');
+        $format = $this->format ?? (string) config('app.datetime_format', 'Y-m-d H:i');
 
         $date = Carbon::parse($value);
         $date->settings(['toStringFormat' => $format]);
