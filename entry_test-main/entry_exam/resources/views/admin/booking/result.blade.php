@@ -46,10 +46,10 @@
                                     @endif
                                 </td>
                                 <td class="cell-datetime">
-                                    <strong>{{ $booking->checkin_time_text }}</strong>
+                                    <strong>{{ $booking->chekin_time }}</strong>
                                 </td>
                                 <td class="cell-datetime">
-                                    <strong>{{ $booking->checkout_time_text }}</strong>
+                                    <strong>{{ $booking->checkout_time }}</strong>
                                 </td>
                                 <td class="text-muted cell-timestamp">
                                     {{ $booking->created_at }}

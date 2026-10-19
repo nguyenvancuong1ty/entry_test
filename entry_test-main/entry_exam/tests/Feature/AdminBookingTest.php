@@ -202,5 +202,32 @@ class AdminBookingTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('customer_name=' . urlencode('ページネーション顧客'));
     }
+
+    /**
+     * Test booking check-in and check-out times are formatted as Y-m-d H:i
+     */
+    public function test_booking_datetime_cast_formatting(): void
+    {
+        $hotel = Hotel::first();
+        $booking = Booking::create([
+            'hotel_id' => $hotel->hotel_id,
+            'customer_name' => 'フォーマット確認顧客',
+            'customer_contact' => '090-9999-0000',
+            'chekin_time' => Carbon::create(2027, 3, 15, 14, 30, 0),
+            'checkout_time' => Carbon::create(2027, 3, 18, 11, 0, 0),
+        ]);
+
+        $this->assertEquals('2027-03-15 14:30', (string) $booking->chekin_time);
+        $this->assertEquals('2027-03-18 11:00', (string) $booking->checkout_time);
+
+        $response = $this->post(route('adminBookingSearchResult'), [
+            'customer_name' => 'フォーマット確認顧客',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertSee('2027-03-15 14:30');
+        $response->assertSee('2027-03-18 11:00');
+    }
 }
+
 
