@@ -27,8 +27,8 @@
                         @foreach ($bookingList as $booking)
                             <tr>
                                 <td class="cell-name cell-customer">
-                                    <div class="hotel-info">
-                                        <div class="hotel-thumb-placeholder">👤</div>
+                                    <div class="customer-info">
+                                        <div class="customer-avatar">👤</div>
                                         <strong>{{ $booking->customer_name }}</strong>
                                     </div>
                                 </td>

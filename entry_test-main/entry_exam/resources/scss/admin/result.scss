@@ -76,7 +76,8 @@ table.data-table {
         }
     }
 
-    .hotel-info {
+    .hotel-info,
+    .customer-info {
         display: flex;
         align-items: center;
         gap: 12px;
@@ -91,7 +92,8 @@ table.data-table {
             flex-shrink: 0;
         }
 
-        .hotel-thumb-placeholder {
+        .hotel-thumb-placeholder,
+        .customer-avatar {
             width: 48px;
             height: 36px;
             border-radius: 4px;
