@@ -67,7 +67,7 @@ If you have any comments about this exam, please write them down here.
      - Included `BookingSeeder` with realistic sample records.
 
 4. Automated Testing:
-   - Implemented comprehensive Feature Tests (`AdminHotelTest`, `AdminBookingTest`) with 30 test cases covering form validation, multi-step flows, image upload/purging, exception handling, backward compatibility, and query parameter preservation across pagination pages.
+   - Implemented comprehensive Feature Tests (`AdminHotelTest`, `AdminBookingTest`) with 32 test cases covering form validation, multi-step flows, image upload/purging, exception handling, backward compatibility, and query parameter preservation across pagination pages.
 
 Thank you very much for reviewing this submission!
 ```

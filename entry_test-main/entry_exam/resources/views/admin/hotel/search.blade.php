@@ -53,7 +53,7 @@
                         <option value="">すべての都道府県</option>
                         @if (!empty($prefectures))
                             @foreach ($prefectures as $prefecture)
-                                <option value="{{ $prefecture->prefecture_id }}" {{ old('prefecture_id', $prefecture_id ?? '') == $prefecture->prefecture_id ? 'selected' : '' }}>
+                                <option value="{{ $prefecture->prefecture_id }}" @selected((string) old('prefecture_id', $prefecture_id ?? '') === (string) $prefecture->prefecture_id)>
                                     {{ $prefecture->prefecture_name }}
                                 </option>
                             @endforeach

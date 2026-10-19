@@ -95,7 +95,7 @@
                                 <select id="prefecture_id" name="prefecture_id" class="form-select @error('prefecture_id') is-invalid @enderror">
                                     <option value="">都道府県を選択してください</option>
                                     @foreach ($prefectures as $prefecture)
-                                        <option value="{{ $prefecture->prefecture_id }}" {{ old('prefecture_id', $hotel->prefecture_id) == $prefecture->prefecture_id ? 'selected' : '' }}>
+                                        <option value="{{ $prefecture->prefecture_id }}" @selected((string) old('prefecture_id', $hotel->prefecture_id) === (string) $prefecture->prefecture_id)>
                                             {{ $prefecture->prefecture_name }}
                                         </option>
                                     @endforeach
