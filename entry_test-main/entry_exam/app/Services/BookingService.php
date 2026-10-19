@@ -30,7 +30,8 @@ class BookingService
         return Booking::query()
             ->search($filters)
             ->paginate($perPage)
-            ->appends($params);
+            ->appends($params)
+            ->withQueryString();
     }
 
     /**

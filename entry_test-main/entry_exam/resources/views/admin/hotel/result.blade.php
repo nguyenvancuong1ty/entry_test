@@ -4,12 +4,12 @@
     <div class="result-card">
         <div class="result-header">
             <h3 class="result-title">検索結果</h3>
-            @if (!empty($hotelList) && count($hotelList) > 0)
-                <span class="result-badge">{{ $hotelList instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $hotelList->total() : count($hotelList) }} 件</span>
+            @if ($hotelList->isNotEmpty())
+                <span class="result-badge">{{ $hotelList->total() }} 件</span>
             @endif
         </div>
 
-        @if (!empty($hotelList) && count($hotelList) > 0)
+        @if ($hotelList->isNotEmpty())
             <div class="table-responsive">
                 <table class="hotel-table">
                     <thead>
@@ -32,13 +32,13 @@
                                         @else
                                             <div class="hotel-thumb-placeholder">🏨</div>
                                         @endif
-                                        <a href="{{ route('hotelDetail', ['hotel_id' => $hotel->hotel_id]) }}" target="_blank" class="hotel-link">
+                                        <a href="{{ route('hotelDetail', ['hotel_id' => $hotel->hotel_id]) }}" target="_blank" rel="noopener noreferrer" class="hotel-link">
                                             {{ $hotel->hotel_name }}
                                         </a>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="pref-badge">{{ $hotel->prefecture->prefecture_name ?? '' }}</span>
+                                    <span class="pref-badge">{{ $hotel->prefecture?->prefecture_name ?? '' }}</span>
                                 </td>
                                 <td class="text-muted">
                                     {{ (string) $hotel->created_at }}

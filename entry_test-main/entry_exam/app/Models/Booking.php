@@ -41,6 +41,22 @@ class Booking extends Model
     }
 
     /**
+     * Accessor alias for checkin_time
+     */
+    public function getCheckinTimeAttribute(): mixed
+    {
+        return $this->chekin_time;
+    }
+
+    /**
+     * Mutator alias for checkin_time
+     */
+    public function setCheckinTimeAttribute(mixed $value): void
+    {
+        $this->attributes['chekin_time'] = $value;
+    }
+
+    /**
      * Scope a query to filter by customer name (partial match)
      */
     public function scopeFilterByCustomerName(Builder $query, ?string $name): Builder

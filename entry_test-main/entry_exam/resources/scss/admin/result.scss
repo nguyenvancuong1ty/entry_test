@@ -37,7 +37,8 @@
     -webkit-overflow-scrolling: touch;
 }
 
-table.hotel-table {
+table.hotel-table,
+table.data-table {
     width: 100%;
     min-width: 1050px;
     border-collapse: collapse;
@@ -123,6 +124,11 @@ table.hotel-table {
     .cell-contact, th.col-contact {
         min-width: 200px;
         white-space: nowrap;
+
+        .cell-contact-text {
+            font-family: monospace;
+            color: #334155;
+        }
     }
 
     .cell-hotel, th.col-hotel {

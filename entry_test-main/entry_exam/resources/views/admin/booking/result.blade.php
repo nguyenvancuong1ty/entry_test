@@ -4,14 +4,14 @@
     <div class="result-card">
         <div class="result-header">
             <h3 class="result-title">予約検索結果</h3>
-            @if (!empty($bookingList) && count($bookingList) > 0)
-                <span class="result-badge">{{ $bookingList instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $bookingList->total() : count($bookingList) }} 件</span>
+            @if ($bookingList->isNotEmpty())
+                <span class="result-badge">{{ $bookingList->total() }} 件</span>
             @endif
         </div>
 
-        @if (!empty($bookingList) && count($bookingList) > 0)
+        @if ($bookingList->isNotEmpty())
             <div class="table-responsive">
-                <table class="hotel-table">
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th class="col-customer">顧客名</th>
@@ -33,14 +33,14 @@
                                     </div>
                                 </td>
                                 <td class="cell-contact">
-                                    <span style="font-family: monospace; color: #334155;">{{ $booking->customer_contact }}</span>
+                                    <span class="cell-contact-text">{{ $booking->customer_contact }}</span>
                                 </td>
                                 <td class="cell-hotel">
                                     @if ($booking->hotel)
-                                        <a href="{{ route('hotelDetail', ['hotel_id' => $booking->hotel->hotel_id]) }}" target="_blank" class="hotel-link">
+                                        <a href="{{ route('hotelDetail', ['hotel_id' => $booking->hotel->hotel_id]) }}" target="_blank" rel="noopener noreferrer" class="hotel-link">
                                             {{ $booking->hotel->hotel_name }}
                                         </a>
-                                        <div class="hotel-sub-pref">{{ $booking->hotel->prefecture->prefecture_name ?? '' }}</div>
+                                        <div class="hotel-sub-pref">{{ $booking->hotel->prefecture?->prefecture_name ?? '' }}</div>
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif

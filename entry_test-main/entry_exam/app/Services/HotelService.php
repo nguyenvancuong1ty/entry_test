@@ -56,7 +56,8 @@ class HotelService
         return Hotel::query()
             ->search($name, $prefectureId)
             ->paginate($perPage)
-            ->appends($params);
+            ->appends($params)
+            ->withQueryString();
     }
 
     /**
