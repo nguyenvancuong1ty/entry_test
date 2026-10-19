@@ -16,6 +16,16 @@ class DateTimeMinute implements CastsAttributes
     public bool $withoutObjectCaching = true;
 
     /**
+     * Create a new cast instance.
+     *
+     * @param string|null $format Optional custom format override
+     */
+    public function __construct(
+        protected ?string $format = null,
+    ) {
+    }
+
+    /**
      * Cast the given value from database.
      *
      * @param array<string, mixed> $attributes
@@ -26,8 +36,10 @@ class DateTimeMinute implements CastsAttributes
             return null;
         }
 
+        $format = $this->format ?? (string) config('booking.datetime_format', 'Y-m-d H:i');
+
         $date = Carbon::parse($value);
-        $date->settings(['toStringFormat' => 'Y-m-d H:i']);
+        $date->settings(['toStringFormat' => $format]);
 
         return $date;
     }

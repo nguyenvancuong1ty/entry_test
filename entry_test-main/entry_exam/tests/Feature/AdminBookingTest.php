@@ -228,6 +228,27 @@ class AdminBookingTest extends TestCase
         $response->assertSee('2027-03-15 14:30');
         $response->assertSee('2027-03-18 11:00');
     }
+
+    /**
+     * Test booking datetime cast respects format declared in config
+     */
+    public function test_booking_datetime_cast_respects_config_format(): void
+    {
+        config(['booking.datetime_format' => 'Y/m/d H:i']);
+
+        $hotel = Hotel::first();
+        $booking = Booking::create([
+            'hotel_id' => $hotel->hotel_id,
+            'customer_name' => 'コンフィグ確認顧客',
+            'customer_contact' => '090-8888-0000',
+            'chekin_time' => Carbon::create(2027, 8, 20, 16, 45, 0),
+            'checkout_time' => Carbon::create(2027, 8, 22, 10, 15, 0),
+        ]);
+
+        $this->assertEquals('2027/08/20 16:45', (string) $booking->chekin_time);
+        $this->assertEquals('2027/08/22 10:15', (string) $booking->checkout_time);
+    }
 }
+
 
 
